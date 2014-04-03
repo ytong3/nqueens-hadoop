@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+	<property>
+		<name>dfs.replication</name>
+		<value>3</value>
+	</property>
+	<property>
+		<name>dfs.name.dir</name>
+		<value>/local_scratch/ylu20/hadoop/name</value>
+	</property>
+	<property>
+		<name>dfs.data.dir</name>
+		<value>/local_scratch/ylu20/hadoop/data</value>
+	</property>
+	<property>
+		<name>dfs.http.address</name>
+		<value>hydra22.eecs.utk.edu:61270</value>
+	</property>
+	<property>
+		<name>dfs.secondary.http.address</name>
+		<value>hydra22.eecs.utk.edu:61290</value>
+	</property>
+	<property>
+		<name>dfs.datanode.address</name>
+		<value>0.0.0.0:61210</value>
+	</property>
+	<property>
+		<name>dfs.datanode.http.address</name>
+		<value>0.0.0.0:61275</value>
+	</property>
+	<property>
+		<name>dfs.datanode.ipc.address</name>
+		<value>0.0.0.0:61220</value>
+	</property>
+</configuration>

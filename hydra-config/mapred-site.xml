@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+	<property>
+		<name>mapred.job.tracker</name>
+		<value>hydra22.eecs.utk.edu:62928</value>
+	</property>
+	<property>
+		<name>mapred.job.tracker.http.address</name>
+		<value>hydra22.eecs.utk.edu:61230</value>
+	</property>
+	<property>
+		<name>mapred.task.tracker.http.address</name>
+		<value>0.0.0.0:61260</value>
+	</property>
+</configuration>
