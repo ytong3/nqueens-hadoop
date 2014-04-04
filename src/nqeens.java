@@ -9,6 +9,8 @@
 	import org.apache.hadoop.io.*;
 	import org.apache.hadoop.mapred.*;
 	import org.apache.hadoop.util.*;
+	
+
 
 	public class WordCount extends Configured implements Tool {
 
