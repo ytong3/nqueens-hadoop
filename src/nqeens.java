@@ -54,6 +54,7 @@ public class Nqueens extends Configured implements tools{
 				String rows = value.toString();
 
 				Board board = new Board(rows);
+				
 
 
 			}
