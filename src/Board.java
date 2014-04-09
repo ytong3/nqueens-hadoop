@@ -4,10 +4,11 @@ import org.apache.hadoop.io.Text;
 
 // Board classes are to represent the square chessboards.
 // A Board object is not not complete unless it has the same width and depth
+// Board can be constructed with comma sepearted string such as 'q1,q2,q3,...'.
 
 public class Board {
   private int dimension; //the dimension of the board
-  private int[] queenPos;
+  private List<Integer> queenPos;
 
 /*
   public Board(int dim){
@@ -16,32 +17,42 @@ public class Board {
   }
 */
   public Board(String boardStr) {
-	String[] token = boardStr.split("|");
-	String[] position = token[1].split(",");
-	dimension = token[0];
-	queensPos = Integer.parseInt(position);
+	String[] position = boardStr.split(",");
+    queensPos = new ArrayList<Integer>();
+    for (String item:position)
+        queensPos.add(Integer.parseInt(item));
   }
 
   public String toString(){
-    String str=Integer.toString(dimension);
-	str = str+"|"+StringUtils.join(queenPos);
+    String str=StringUtils.join(queenPos,",");
     return str;
   }
 
-  private Board[] generateNewBoard(){
-    StringBuffer newRow = new StringBuffer(dimension,0);
-	
-    for (int col = 0;col<dimension;col++){
-      //check if there is conflict in the same column
-	  int row=0;
-	  for (;row<queensPos.length;row++)
-		if (queens[row]==col) break;
-	
-	  if (row!=rows.length ) continue;
-	  
+  public List<String> generateNewBoards(){
+    //if queenPos is not initialized, throw an exception
+    //if queenPos already has enough number of elements, halt.
 
-      //check if there there are conflicts in the diagonal direction
-	  
+    boolean[] cells = new boolean[dimension]{true};
+    for (int row = 0;row<queenPos.size();row++){
+        //eliminate all existing columns
+        cells[queenPos.get(row)]=false;
+
+        //eliminate cells that in the diagnal
+        int leftDiagonal = queenPos.get(row) - (queensPos.size()-row);
+        int rightDiagonal = queenPos.get(row) + (queensPos.size()-row);
+
+        if (leftDiagonal>=0) cells[leftDiagnonal]=false;
+        if (rightDiagonal<=dimension) cells[rightDiagonal]=false;
     }
+
+    List<String> res = new ArrayList<String>();
+    String oldBoard = this.toString();
+
+    for (int col =0;col<dimension;col++){
+        if (cells[col]==true){
+            res.add(oldBoard.append(","+Integer.toString(col)));
+        }
+    }
+    return res;
   }
 }
