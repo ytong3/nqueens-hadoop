@@ -18,10 +18,6 @@ public class Nqueens extends Configured implements tools{
 			private final static Text F = new Text("F");
 			private final static Text C = new Text("C");
 
-			private Text word = new Text();
-
-			private long iterations;
-			private String inputFile;
 			private int boardDim;
 
 			public void configure(JobConf job) {
@@ -41,7 +37,7 @@ public class Nqueens extends Configured implements tools{
 				String layout = linePasrseRes[1];
 				String[] tempTokens = layout.split(",");
 
-        List<String> newBoards = board.generateNewBoards();
+                List<String> newBoards = board.generateNewBoards();
 
 				Text newDescriptor;
 				if (tempToken.length==boardDim-1)
@@ -53,13 +49,16 @@ public class Nqueens extends Configured implements tools{
 					output.collect(new Text(lineParseRes[0]+"|"+layout), newDescriptor);
 				}
 
-        reporter.incCounter(Counters.DFS_STEP,1);
+            reporter.incCounter(Counters.DFS_STEP,1);
 			}
+        }
 
 		public static class Reduce extends MapReduceBase implements Reducer<Text,BooleanWritable,Text,BooleanWritable> {
 			static enum Counters {DFS_STEPS, ITERATIONS};
-			private final static BooleanWritable T = new BooleanWritable(true);
-			private final static BooleanWritable F = new BooleanWritable(false);
+
+			private final static Text T = new Text("T");
+			private final static Text F = new Text("F");
+			private final static Text C = new Text("C");
 
 			public void reduce(Text key, Iterator<Text> values, OutputCollector<Text, Text> output, Result reporter) throws IOException{
 				//board layouts are never grouped. process one by one.
@@ -95,32 +94,42 @@ public class Nqueens extends Configured implements tools{
 				reporter.incCounter(Counters.DFS_STEP,1);
 				reporter.incCounter(Counters.ITERATIONS,1);
 			}
+        }
 
 
-			public int run(String[] args) throws Exception {
-				JobConf conf = new JobConf(getConf(), WordCount.class);
-				conf.setJobName("Nqueens");
+        public int run(String[] args) throws Exception {
+            int dfsSteps = 0;
+            JobConf conf;
+            
+            int boardDim = job.getInt("nqueens.board.dimension", 8);
+            //while there dfsSteps is less than the dimension, proceed the searching
+            while (dfsStep<boardDim){
+                String input, output;
 
-				conf.setOutputKeyClass(Text.class);
-				conf.setOutputValueClass(Text.class);
 
-				conf.setMapperClass(Map.class);
-				conf.setReducerClass(Reduce.class);
+                job = new JobConf(getConf(),Nqueens.class);
+                conf.setJobName("nqueens"+dfsStep);
 
-				conf.setInputFormat(TextInputFormat.class);
-				conf.setOutputFormat(TextOutputFormat.class);
+                conf.setOutputKeyClass(Text.class);
+                conf.setOutputValueClass(Text.class);
 
-				List<String> other_args = new ArrayList<String>();
+                conf.setMapperClass(Map.class);
+                conf.setReducerClass(Reduce.class);
 
-				FileInputFormat.setInputPaths(conf, new Path(other_args.get(0)));
-				FileOutputFormat.setOutputPath(conf, new Path(other_args.get(1)));
+                conf.setInputFormat(TextInputFormat.class);
+                conf.setOutputFormat(TextOutputFormat.class);
 
-				JobClient.runJob(conf);
-				return 0;
-			}
+                FileInputFormat.setInputPaths(conf, new Path(args[0])+dfsStep);
+                FileOutputFormat.setOutputPath(conf, new Path(args[1]+dfsStep+1);
 
-			public static void main(String[] args) throws Exception {
-				int res = ToolRunner.run(new Configuration(), new WordCount(), args);
-				System.exit(res);
-			}
-		}
+                JobClient.runJob(conf);
+                dfsStep = dfsStep+2;
+            }
+            return 0;
+        }
+
+        public static void main(String[] args) throws Exception {
+            int res = ToolRunner.run(new Configuration(), new Nqueens(), args);
+            System.exit(res);
+        }
+    }

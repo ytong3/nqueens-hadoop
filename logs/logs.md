@@ -1,4 +1,8 @@
-4/7
+# 4/9
+Let the solver run iteratively.
+
+
+# 4/7
 Input files are in the following format:
 
     8|1,3,5,7,4,6....|T\n
@@ -32,15 +36,23 @@ Upon receiving a incomplete layout from the mapper, the reducer also continues
 the search one more step and write the results into the persistent memory to be
 read by the mappers in the next iteration.
 
-4/3
+==============
+Lessons:
+Top-level design is not waste of time at all.
+In a project, one should first define those top level, including message format,
+program framework, etc.
+Then we implement and realize the design.
+
+# 4/3
 + created a repository on github for version control
 + imported previous logs
 + had a new idea of solving the problem using iterative MapReduce leveraging
   hadoop framework.
 
-
+Main body complete.
+Will begin testing and debug soon
 ========================
 
-2/20/2014
+# 2/20/2014
 + Project kick off
 + Proposal submitted
