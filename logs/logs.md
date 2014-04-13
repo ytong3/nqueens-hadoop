@@ -1,3 +1,24 @@
+# 4/12
+Tested the 15 by 15, the result proved to be right. There are 2279184 solutions. It takes about 20 minutes 16:23:19 - 16:53:00.
+
+However, there are a lot of space to improve.
+First off, there are only 1 reducer working in each job, which easily became the bottleneck, as it can be seen from the log.
+Secondly, the stdout/stderr were not turned off. For millions of records, that could be a huge burden.
+Thirdly, the increasing the number of slave worker is expected to accelerate the search
+Fourthly, refactor the code. Optimize the code, remove redundency and unnecessary operations.
+Lastly, explore other more efficient alogirhtms than the brute-force approach.
+
+=========================
+## Bug1
+using str.split("|") would not split a "|" seperated str, nor would str.split("\|"). The reason is that what is supplied to split are supposed to be a regular expression. So, we need to do str.split("[|]") to get the job done. Honestly, I did not quite get why str.split("\|") failed in this case. Need to find it out later.
+
+## Bug2
+I used a poor naming convention to confuse myself. At the class Nqueens, what should be specificed should be variable newLayout, but I put layout, which happened to be another variable. To avoid this issue, I need to come up with a good, clear, and error-proof naming convention. Maybe I need to consult Google C++/Java style guide.
+
+## Accessing stdout/stderr in hadoop
+One can dig into the jobtracker of MapReduce to find the stdout/stderr output.
+
+
 # 4/9
 Let the solver run iteratively.
 
