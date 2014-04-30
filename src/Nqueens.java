@@ -31,9 +31,9 @@ public class Nqueens extends Configured implements Tool{
 			public void map(LongWritable key, Text value, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
 				String line = value.toString();
 				
-				System.out.println("Line being processed: "+line);
+				//System.out.println("Line being processed: "+line);
 
-				reporter.setStatus("Searching board layout "+line+" from file "+inputFile);
+				//reporter.setStatus("Searching board layout "+line+" from file "+inputFile);
 			
 				//line's format, e.g.: 8|1,2|T
 				String[] lineParseRes = line.split("[|]");
@@ -84,7 +84,7 @@ public class Nqueens extends Configured implements Tool{
 				//board layouts are never grouped. process one by one.
 				
 				String descriptor = values.next().toString();
-				System.out.println("Reducer is currently processing "+key.toString()+" "+descriptor);
+				//System.out.println("Reducer is currently processing "+key.toString()+" "+descriptor);
 				
 				//process layout with Board class
 				if (descriptor.equals("C")){
@@ -99,7 +99,7 @@ public class Nqueens extends Configured implements Tool{
 					int dimension = Integer.parseInt(token[0]);
 					String queenPos = token[1];
 					int currentQueens = queenPos.split(",").length;
-					System.out.println("CurrentQueens: "+currentQueens);
+					//System.out.println("CurrentQueens: "+currentQueens);
 
 					Board board = new Board(queenPos,boardDim);
 					List<String> newQueenPos = board.generateNewBoards();

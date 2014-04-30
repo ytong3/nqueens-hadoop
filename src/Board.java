@@ -61,7 +61,7 @@ public class Board {
     for (int col =0;col<dimension;col++){
         if (cells[col]==true){
         	String newItem = new String(oldBoard+","+col);
-        	System.out.println(newItem);
+        	//System.out.println(newItem);
             res.add(newItem);
         }
     }
