@@ -27,12 +27,14 @@ mapping.
 
 
 # 4/20
+
 Adding more slave workers into the hadoop framework.
 With 4 slave workers and 4 reducers, time: 8 minutes 29 seconds
 With 5 slave workers and 4 reducers, time: 7 minutes 48 seconds
 With 6 slave workers and 4 reducers, time: 7 minutes 3  seconds.
 
 # 4/18
+
 Wrote several shell scripts to facilitate compiling and debugging.
 + all.sh
 + cleanup.sh
@@ -55,6 +57,7 @@ For example, gen_initial.sh 8 generates the following input in a text file.
 This input serves as the initial step of a 8-queen problem.
 
 # 4/17
+
 ## Bug3
 By examining the log, the last iteration is useless.
 All entries in the result of the second last iteration are already marked as 'C' (complete).
@@ -92,10 +95,13 @@ Honestly, I did not quite get why str.split("\|") failed in this case. Need to f
 
 ## Bug2
 I used a poor naming convention to confuse myself.
-At the class Nqueens, what should be specificed should be variable newLayout, but I put layout, which happened to be another variable. To avoid this issue, I need to come up with a good, clear, and error-proof naming convention. Maybe I need to consult Google C++/Java style guide.
+At the class Nqueens, what should be specificed should be variable newLayout,
+but I put layout, which happened to be another variable.
+To avoid this issue, I need to come up with a good, clear, and error-proof naming convention.
+Maybe it is a good idea to  consult Google C++/Java style guide.
 
-## Accessing stdout/stderr in hadoop
-One can dig into the jobtracker of MapReduce to find the stdout/stderr output.
+## stdout/stderr in hadoop
+One can dig into the log of jobtracker of MapReduce to find the stdout/stderr output.
 
 
 # 4/9
@@ -130,6 +136,7 @@ it search can continue, or the layout is already complete, respectively.
 If a line has less number of elements than the dimension, then it is said to be incomplete.
 Unless indicated as F, an incomplete board layout will continue another step of
 search until either it reaches an dead end or the board becomes complete.
+
 =============
 Mapper:
 A mapper should read each board layout indicated as T in the input file, and
@@ -160,8 +167,8 @@ Then we implement and realize the design.
 
 Main body complete.
 Will begin testing and debug soon
-========================
 
+========================
 # 2/20/2014
 + Project kick off
 + Proposal submitted
