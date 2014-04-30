@@ -30,11 +30,11 @@ public class Nqueens extends Configured implements Tool{
 
 			public void map(LongWritable key, Text value, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
 				String line = value.toString();
-				
+
 				//System.out.println("Line being processed: "+line);
 
 				//reporter.setStatus("Searching board layout "+line+" from file "+inputFile);
-			
+
 				//line's format, e.g.: 8|1,2|T
 				String[] lineParseRes = line.split("[|]");
 
@@ -62,7 +62,7 @@ public class Nqueens extends Configured implements Tool{
 				for(String newlayout: newBoards){
 					output.collect(new Text(lineParseRes[0]+"|"+newlayout), newDescriptor);
 				}
-				
+
 				reporter.incrCounter(Counters.RECORDS,1);
 
 			}
@@ -75,17 +75,17 @@ public class Nqueens extends Configured implements Tool{
 			private final static Text F = new Text("F");
 			private final static Text C = new Text("C");
 			private int boardDim;
-			
+
 			public void configure(JobConf job) {
 				boardDim = job.getInt("nqueens.board.dimension", 8);
 			}
 
 			public void reduce(Text key, Iterator<Text> values, OutputCollector<Text, Text> output, Reporter reporter) throws IOException{
 				//board layouts are never grouped. process one by one.
-				
+
 				String descriptor = values.next().toString();
 				//System.out.println("Reducer is currently processing "+key.toString()+" "+descriptor);
-				
+
 				//process layout with Board class
 				if (descriptor.equals("C")){
 					//if received layout is complete, write to the result directly
@@ -121,11 +121,11 @@ public class Nqueens extends Configured implements Tool{
 
 
         public int run(String[] args) throws Exception {
-            int dfsStep = 0;
+            int dfsStep = 1;
             JobConf conf;
-            
+
             int boardDim = Integer.parseInt(args[2]);
-			int numIteration = 0;
+						int numIteration = 0;
             //while there dfsSteps is less than the dimension, proceed the searching
             while (dfsStep<boardDim){
                 String input, output;
@@ -146,12 +146,12 @@ public class Nqueens extends Configured implements Tool{
 					FileInputFormat.setInputPaths(conf, new Path(args[0]));
 				else
 					FileInputFormat.setInputPaths(conf, new Path(args[1]+(numIteration-1)));
-                
+
 				FileOutputFormat.setOutputPath(conf, new Path(args[1]+(numIteration)));
 
                 JobClient.runJob(conf);
                 dfsStep = dfsStep+2;
-				numIteration = numIteration+1;
+				        numIteration = numIteration+1;
             }
             return 0;
         }
