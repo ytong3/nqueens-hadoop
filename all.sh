@@ -3,4 +3,4 @@
 ./cleanup.sh
 ./compile.sh
 ./make_jar.sh
-./run_program.sh res
+./run_program.sh res8
