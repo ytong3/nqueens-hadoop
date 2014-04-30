@@ -6,6 +6,7 @@ First off, there are only 1 reducer working in each job, which easily became the
 Secondly, the stdout/stderr were not turned off. For millions of records, that could be a huge burden.
 Thirdly, the increasing the number of slave worker is expected to accelerate the search
 Fourthly, refactor the code. Optimize the code, remove redundency and unnecessary operations.
+Fourthly, it remains unknown if change the number of duplication can save the run time, if the dependabilities of machiens are expected to be good enough.
 Lastly, explore other more efficient alogirhtms than the brute-force approach.
 
 =========================
